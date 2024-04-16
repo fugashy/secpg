@@ -47,13 +47,14 @@ def client(key_path, ipaddr, port, rate, msg):
 
 @skes.command()
 @click.argument("key_path", type=str)
+@click.option("--ipaddr", type=str, default="127.0.0.1", show_default=True)
 @click.option("--port", type=int, default=48273, show_default=True)
-def server(key_path, port):
+def server(key_path, ipaddr, port):
     with open(key_path, "rb") as f:
         key = f.read()
 
     server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    server.bind(("127.0.0.1", port))
+    server.bind((ipaddr, port))
 
     while True:
         encrypted_msg, client_ipaddr = server.recvfrom(1024)

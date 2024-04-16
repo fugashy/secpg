@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  server:
+    image: secpg:latest
+    networks:
+      network_skes:
+        ipv4_address: 172.16.111.2
+    volumes:
+      - /tmp:/tmp
+    command: >
+      secpg skes server /tmp/random.txt --ipaddr 172.16.111.2
+  client:
+    image: secpg:latest
+    networks:
+      network_skes:
+        ipv4_address: 172.16.111.3
+    volumes:
+      - /tmp:/tmp
+    command: >
+      secpg skes client /tmp/random.txt --ipaddr 172.16.111.2
+
+networks:
+  network_skes:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.111.0/24
+          gateway: 172.16.111.1

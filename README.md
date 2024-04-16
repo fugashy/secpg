@@ -44,7 +44,7 @@ Package for experiencing technologies that support confidentiality consideration
 
 - 暗号化・複合に際して，お互いに同じ鍵を用います
 
-### 使用方法
+### コマンドライン上における使用方法
 
 - 共通鍵の生成
 
@@ -75,3 +75,19 @@ Package for experiencing technologies that support confidentiality consideration
   msg from ('127.0.0.1', 53781):
   hello encryption !
   ```
+
+### DockerComposeを用いた使用方法
+
+```bash
+cd composes/skes
+docker compose up
+
+> skes-client-1  |           msg: hello encryption !
+> skes-client-1  | encrypted msg: b'\x13e\xf3A\xb4\xbe\xd4M<\x045\\cifH\xf2#\xa9\xe8|k\xb5\x1a\x9d\x9f\x07\xee\xce\x13\x99\xd9\xfe\xeftz\xc4\xe5\xf6w\xb1\x1e\xd4\xa9\x9b\xeaTk'
+> ...
+> skes-server-1  | encrypted from ('172.16.111.3', 57481):
+> skes-server-1  | b'\x99\xd7\x17\xeb\xf6<}x\xac\xe65_]\xd9\x03\x88\xf6\xca\xd7\xef<\x04\xe4`\xbe$&`;\xd1\xd1\xb8C\x99\x88>\xf5~\x0e\xa7hf\x04\xb4\x8b\x98U\xae'
+> skes-server-1  | msg from ('172.16.111.3', 57481):
+> skes-server-1  | hello encryption !
+> ...
+```
