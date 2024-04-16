@@ -22,9 +22,17 @@ Package for experiencing technologies that support confidentiality consideration
 
 ## インストール方法
 
-```bash
-pip install .
-```
+- Localへのインストール
+
+  ```bash
+  pip install .
+  ```
+
+- Dockerイメージのビルド
+
+  ```bash
+  docker build -t secpg:latest .
+  ```
 
 ## 共通鍵暗号方式
 
