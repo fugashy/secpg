@@ -1,0 +1,5 @@
+build/
+security_playground.egg-info/
+*.txt
+*.pem
+
