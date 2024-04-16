@@ -2,7 +2,9 @@
 
 情報通信の際に考慮すべき機密性を支える技術について体感するためのパッケージです．
 
-## 1 コンテンツ
+Package for experiencing technologies that support confidentiality considerations during information communication.
+
+##  コンテンツ(予定)
 
 - 共通鍵暗号方式
 
