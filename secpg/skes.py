@@ -1,7 +1,8 @@
+import socket
+import time
+
 import click
 from Crypto.Cipher import AES
-import base64
-import socket
 
 
 @click.group(help="A sample for sending and "
@@ -14,18 +15,20 @@ def skes():
 @click.argument("key_path", type=str)
 @click.option("--ipaddr", type=str, default="127.0.0.1", show_default=True)
 @click.option("--port", type=int, default=48273, show_default=True)
-def client(key_path, ipaddr, port):
+@click.option("--rate", type=float, default=1.0, show_default=True)
+@click.option(
+        "--msg",
+        type=str,
+        default="hello encryption !",
+        show_default=True)
+def client(key_path, ipaddr, port, rate, msg):
     with open(key_path, "rb") as f:
         key = f.read()
 
     client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     while True:
-        msg = input(
-                f"Input a message that you want to send to {ipaddr}:{port}\n"
-                "Input 'exit' to terminate.\n")
-        if msg == "exit":
-            break
+        time.sleep(rate)
 
         cipher = AES.new(key, AES.MODE_CBC)
         iv = cipher.iv
@@ -34,6 +37,7 @@ def client(key_path, ipaddr, port):
         padded_msg = msg + padding
         encrypted_msg = iv + cipher.encrypt(padded_msg.encode())
 
+        print(f"          msg: {msg}")
         print(f"encrypted msg: {encrypted_msg}")
 
         client.sendto(encrypted_msg, (ipaddr, port))

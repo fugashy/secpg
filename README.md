@@ -4,17 +4,17 @@
 
 Package for experiencing technologies that support confidentiality considerations during information communication.
 
-##  コンテンツ(予定)
+##  コンテンツ
 
 - 共通鍵暗号方式
 
   Symmetric Key Encryption Scheme (SKCS)
 
-- 公開鍵暗号方式
+- 公開鍵暗号方式(now printing...)
 
-- HTTPS
+- HTTPS(now printing...)
 
-- PKI
+- PKI(now printing...)
 
 ## 動作確認環境
 
@@ -55,9 +55,7 @@ pip install .
   ```bash
   secpg skes client /tmp/random.txt
 
-  > Input a message that you want to send to 127.0.0.1:48273
-  > Input 'exit' to terminate.
-  hello encryption !
+  >           msg: hello encryption !
   > encrypted msg: b'\xb1\xda\x1d\xf0\x1bU\x85v\x9cC\x9d\xfc\xc2\x99\x9b\xee\x19\xa2\xbe\x90\\\xb9\xf4\x9ar~\xbc%\xa4=\x98\x81\x8c\xf4;\x9e\x99\x06\xc8\x1e0\x89\xb0\x8a?\x8f\x9b\xa9'
   ```
 
