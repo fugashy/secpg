@@ -1,4 +1,4 @@
-# security_playground
+# secpg: Security Playground
 
 情報通信の際に考慮すべき機密性を支える技術について体感するためのパッケージです．
 
@@ -52,13 +52,13 @@ Package for experiencing technologies that support confidentiality consideration
   secpg genkey random
   ```
 
-- 受信者の起動(Run the server)
+- サーバの起動(Run the server)
 
   ```bash
   secpg skes server /tmp/random.txt
   ```
 
-- 送信者の起動とメッセージの送信(Run the client then send messages)
+- クライアントの起動とメッセージの送信(Run the client then send messages)
 
   ```bash
   secpg skes client /tmp/random.txt
