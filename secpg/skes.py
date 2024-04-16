@@ -1,4 +1,7 @@
 import click
+from Crypto.Cipher import AES
+import base64
+import socket
 
 
 @click.group(help="A sample for sending and "
@@ -10,13 +13,52 @@ def skes():
 @skes.command()
 @click.argument("key_path", type=str)
 @click.option("--ipaddr", type=str, default="127.0.0.1", show_default=True)
-@click.option("--port", type=float, default=1.0, show_default=True)
-def send(key_path, ipaddr, port):
-    pass
+@click.option("--port", type=int, default=48273, show_default=True)
+def client(key_path, ipaddr, port):
+    with open(key_path, "rb") as f:
+        key = f.read()
+
+    client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    while True:
+        msg = input(
+                f"Input a message that you want to send to {ipaddr}:{port}\n"
+                "Input 'exit' to terminate.\n")
+        if msg == "exit":
+            break
+
+        cipher = AES.new(key, AES.MODE_CBC)
+        iv = cipher.iv
+        padding_size = AES.block_size - len(msg) % AES.block_size
+        padding = padding_size * chr(padding_size)
+        padded_msg = msg + padding
+        encrypted_msg = iv + cipher.encrypt(padded_msg.encode())
+
+        print(f"encrypted msg: {encrypted_msg}")
+
+        client.sendto(encrypted_msg, (ipaddr, port))
+
+    client.close()
 
 
 @skes.command()
 @click.argument("key_path", type=str)
-@click.option("--port", type=float, default=1.0, show_default=True)
-def recv(key_path, port):
-    pass
+@click.option("--port", type=int, default=48273, show_default=True)
+def server(key_path, port):
+    with open(key_path, "rb") as f:
+        key = f.read()
+
+    server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server.bind(("127.0.0.1", port))
+
+    while True:
+        encrypted_msg, client_ipaddr = server.recvfrom(1024)
+        iv = encrypted_msg[:AES.block_size]
+        cipher = AES.new(key, AES.MODE_CBC, iv=iv)
+        print(f"encrypted from {client_ipaddr}:\n{encrypted_msg}")
+
+        msg = cipher.decrypt(encrypted_msg[AES.block_size:]).decode()
+        padding_size = ord(msg[-1])
+        msg = msg[:-padding_size]
+
+        print(f"msg from {client_ipaddr}:\n{msg}")

@@ -1,5 +1,6 @@
 import click
 
+from .genkey import genkey
 from .skes import skes
 
 
@@ -10,6 +11,7 @@ def secpg():
 
 def main():
     commands = [
+            genkey,
             skes,
             ]
     [secpg.add_command(c) for c in commands]
