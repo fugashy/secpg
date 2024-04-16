@@ -1,6 +1,6 @@
 import click
 
-from .aes import aes
+from .skes import skes
 
 
 @click.group()
@@ -10,7 +10,7 @@ def secpg():
 
 def main():
     commands = [
-            aes,
+            skes,
             ]
     [secpg.add_command(c) for c in commands]
 

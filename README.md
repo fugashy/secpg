@@ -8,6 +8,8 @@ Package for experiencing technologies that support confidentiality consideration
 
 - 共通鍵暗号方式
 
+  Symmetric Key Encryption Scheme (SKCS)
+
 - 公開鍵暗号方式
 
 - HTTPS
@@ -47,7 +49,7 @@ pip install .
   一定周期でメッセージを受信者に送信します
 
   ```bash
-  secpg aes send --ipaddr 127.0.0.1 --port 48273
+  secpg skes send --ipaddr 127.0.0.1 --port 48273
   ```
 
 - 受信者の起動
@@ -55,5 +57,5 @@ pip install .
   受信したメッセージを表示します
 
   ```bash
-  secpg aes recv --port 48273
+  secpg skes recv --port 48273
   ```
