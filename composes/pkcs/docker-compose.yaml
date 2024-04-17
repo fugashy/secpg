@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  server:
+    image: secpg:latest
+    networks:
+      network_pkcs:
+        ipv4_address: 172.16.112.2
+    volumes:
+      - /tmp:/tmp
+    command: >
+      secpg pkcs server /tmp/rsa.pem --ipaddr 172.16.112.2
+  client:
+    image: secpg:latest
+    networks:
+      network_pkcs:
+        ipv4_address: 172.16.112.3
+    volumes:
+      - /tmp:/tmp
+    command: >
+      secpg pkcs client /tmp/rsa_pub.pem --ipaddr 172.16.112.2
+
+networks:
+  network_pkcs:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.112.0/24
+          gateway: 172.16.112.1
