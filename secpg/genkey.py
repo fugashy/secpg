@@ -40,8 +40,8 @@ def rsa(bit_length, output_path_pub, output_path):
     pub_key = key.publickey()
 
     with open(output_path_pub, "wb") as f:
-        f.write(pub_key.export_key())
+        f.write(pub_key.export_key("PEM"))
     with open(output_path, "wb") as f:
-        f.write(key.export_key())
+        f.write(key.export_key("PEM"))
 
     print(f"generate {output_path_pub} and {output_path}")
